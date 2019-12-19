@@ -67,7 +67,7 @@ public class ServidorTCP2 implements Runnable {
 			PrintWriter fsortida = null;
 			BufferedReader fentrada = null;
 
-			System.out.println("Client " + this.numClient + " connectat... ");
+			System.out.println("Client" + this.numClient + " connectat... ");
 
 			//FLUX DE SORTIDA AL CLIENT
 			fsortida = new PrintWriter(this.client.getOutputStream(), true);
@@ -79,9 +79,11 @@ public class ServidorTCP2 implements Runnable {
 			
 
 
-			while ((cadena = fentrada.readLine()) != null) {
+			while ((cadena = fentrada.readLine()) != null && (nom = fentrada.readLine()) != null) {
 
+				fsortida.println(nom);
 				fsortida.println(cadena);
+				System.out.println("Nom: " + nom);
 				System.out.println("Rebent: "+cadena);
 				
 				for (int i = 0; i < arraySocketClients.length; i++) {

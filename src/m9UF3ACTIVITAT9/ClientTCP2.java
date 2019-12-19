@@ -5,6 +5,8 @@ import java.io.*;
 
 public class ClientTCP2 implements Runnable{
 	
+	private static Socket client;
+	
 	public static void main (String[] args) throws Exception {
 		
 		// **********SEGONA PART**********
@@ -62,11 +64,7 @@ public class ClientTCP2 implements Runnable{
 
 		try {
 			
-			BufferedReader fentrada = null;
-
-
-			//FLUX D'ENTRADA DEL CLIENT
-			fentrada = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
+			BufferedReader fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			
 			
 
