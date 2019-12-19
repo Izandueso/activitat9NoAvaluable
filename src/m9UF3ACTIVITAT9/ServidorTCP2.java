@@ -44,7 +44,7 @@ public class ServidorTCP2 implements Runnable {
 			Socket[] arraySocketClients = new Socket[numClients];
 			
 			for (int j = 0; j < arraySocketClients.length; j++) {
-				if (arraySocketClients[i] != null){
+				if (arraySocketClients[i] == null){
 					arraySocketClients[i] = clientConnectat;
 					
 				}

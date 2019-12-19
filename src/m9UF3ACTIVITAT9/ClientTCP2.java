@@ -13,6 +13,7 @@ public class ClientTCP2 implements Runnable{
 	
 	public static void main (String[] args) throws Exception {
 		
+		
 		// **********SEGONA PART**********
 		String host = "localhost";
 		int port = 60000;//Port remot
