@@ -5,7 +5,11 @@ import java.io.*;
 
 public class ClientTCP2 implements Runnable{
 	
-	private static Socket client;
+	private static Socket cliente;
+	
+	public ClientTCP2(Socket cliente){
+		this.cliente = cliente;
+	}
 	
 	public static void main (String[] args) throws Exception {
 		
@@ -27,6 +31,9 @@ public class ClientTCP2 implements Runnable{
 		String nom , eco2= "";
 		System.out.println("Introdueix nom:");
 		nom = in.readLine();
+		
+		Runnable run = new ClientTCP2(cliente);
+		Thread enviaralServidor = new Thread(run);
 		
 		
 		
@@ -64,7 +71,7 @@ public class ClientTCP2 implements Runnable{
 
 		try {
 			
-			BufferedReader fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			BufferedReader fentrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 			
 			
 

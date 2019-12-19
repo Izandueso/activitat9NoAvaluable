@@ -13,10 +13,11 @@ public class ServidorTCP2 implements Runnable {
 	String cadena = "";
 	String nom = "";
 
-	public ServidorTCP2(Socket clientConnectat, ServerSocket server) {
+	public ServidorTCP2(Socket clientConnectat, ServerSocket server, Socket[] arraySocketClients) {
 		this.client = clientConnectat;
 		this.server = server;
 		this.numClient ++;
+		this.arraySocketClients = arraySocketClients;
 	}
 
 	public static void main (String[] args) throws IOException {
@@ -45,11 +46,12 @@ public class ServidorTCP2 implements Runnable {
 			for (int j = 0; j < arraySocketClients.length; j++) {
 				if (arraySocketClients[i] != null){
 					arraySocketClients[i] = clientConnectat;
+					
 				}
 			}
 
 			// Runnable
-			arrayRunnable[i] = new ServidorTCP2(clientConnectat, servidor);
+			arrayRunnable[i] = new ServidorTCP2(clientConnectat, servidor, arraySocketClients);
 
 			// Thread
 			arrayThread[i] = new Thread(arrayRunnable[i]);
@@ -80,15 +82,20 @@ public class ServidorTCP2 implements Runnable {
 
 
 			while ((cadena = fentrada.readLine()) != null && (nom = fentrada.readLine()) != null) {
-
-				fsortida.println(nom);
+			
 				fsortida.println(cadena);
-				System.out.println("Nom: " + nom);
-				System.out.println("Rebent: "+cadena);
+				fsortida.println(nom);
+				System.out.println("Nom: " + cadena);
+				System.out.println("Rebent: "+nom);
 				
 				for (int i = 0; i < arraySocketClients.length; i++) {
-					fsortida = new PrintWriter(this.arraySocketClients[i].getOutputStream(), true);
-					fsortida.println(cadena);
+					
+					if (arraySocketClients[i] != null){
+						fsortida = new PrintWriter(this.arraySocketClients[i].getOutputStream(), true);
+						fsortida.println(nom);
+						fsortida.println(cadena);
+					}
+					
 				}
 				
 				if (cadena.equals("*")) break;
